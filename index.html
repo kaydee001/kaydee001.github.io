@@ -260,14 +260,14 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-				// var loader = document.getElementById("loader-container");
-				// window.addEventListener("load", function(){
-				// 	loader.style.display = "none";
-				// });
-
-				$(window).on("load", function(){
-					$(".loader-container").fadeOut(1000);
+				var loader = document.getElementById("loader-container");
+				window.addEventListener("load", function(){
+					loader.style.display = "none";
 				});
+
+				// $(window).on("load", function(){
+				// 	$(".loader-container").fadeOut(1000);
+				// });
 				
 				const form = document.getElementById("form");
 				const result = document.getElementById("result");
