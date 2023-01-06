@@ -5,16 +5,27 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<style>
-			#preloader	{
+			/* #preloader	{
 				background-color: black center center;
 				height: 100%;
 				width: 100%;
 				position: fixed;
 				z-index: 100;
+			} */
+
+			.loader-container{
+				width: 100%;
+				height: 100vh;
+				background-color: black;
+				position: fixed;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 
-			.loader {
+			.load-er {
 				width: 12px;
 				height: 12px;
 				border-radius: 50%;
@@ -45,11 +56,15 @@
 			}
 		</style>
 	</head>
-	<body class="is-preload">
-		<div id="preloader">
+	<body >
+		<!-- <div id="preloader">
 			<span class="loader"></span>
-		</div>
+		</div> -->
 		
+		<div class="loader-continer">
+			<div class="load-er"></div>
+		</div>
+
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
@@ -245,9 +260,13 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-				var loader = document.getElementById("preloader");
-				window.addEventListener("load", function(){
-					loader.style.display = "none";
+				// var loader = document.getElementById("preloader");
+				// window.addEventListener("load", function(){
+				// 	loader.style.display = "none";
+				// });
+
+				$(window).on("load", function(){
+					$(".loader-container").fadeOut(1000);
 				});
 				
 				const form = document.getElementById("form");
