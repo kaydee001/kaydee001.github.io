@@ -18,7 +18,7 @@
 			.loader-container{
 				width: 100%;
 				height: 100vh;
-				background-color: black;
+				background-color: #2e3440;
 				position: fixed;
 				display: flex;
 				align-items: center;
@@ -27,6 +27,30 @@
 			}
 
 			.load-er {
+				width: 96px;
+				height: 16px;
+				display: inline-block;
+				background-color: #e5e9f0;
+				border: 1px solid #e5e9f0;
+				border-radius: 4px;
+				background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+				font-size: 30px;
+				background-size: 1em 1em;
+				box-sizing: border-box;
+				animation: barStripe 1s linear infinite;
+				}
+
+			@keyframes barStripe {
+				0% {
+					background-position: 1em 0;
+				}
+				100% {
+					background-position: 0 0;
+				}
+			}
+
+			/* CIRCLE ANIMATION */
+			/* .load-er {
 				width: 12px;
 				height: 12px;
 				border-radius: 50%;
@@ -39,22 +63,22 @@
 			}
 
 			@keyframes animloader {
-			0% {
-				box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
-			}
-			25% {
-				box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
-			}
-			50% {
-				box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
-			}
-			75% {
-				box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
-			}
-			100% {
-				box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
-			}
-			}
+				0% {
+					box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+				}
+				25% {
+					box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
+				}
+				50% {
+					box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
+				}
+				75% {
+					box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+				}
+				100% {
+					box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+				}
+			} */
 		</style>
 	</head>
 	<body >
