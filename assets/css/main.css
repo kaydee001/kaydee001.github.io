@@ -2606,7 +2606,6 @@ input, select, textarea {
 		text-align: right;
 		top: 0;
 		width: 30%;
-		z-index: 1;
 	}
 
 		#header > * {
@@ -3033,7 +3032,6 @@ input, select, textarea {
 				max-width: none;
 				padding: 6em 3em 3em 3em;
 				width: calc(100% - 30%);
-				z-index: 1;
 			}
 
 	}
@@ -3116,7 +3114,6 @@ input, select, textarea {
 				margin: 0;
 				padding: 6em 4em;
 				width: 100%;
-				z-index: 1;
 			}
 
 	}
