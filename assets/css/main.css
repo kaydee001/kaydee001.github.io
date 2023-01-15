@@ -7,6 +7,25 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+.tag-card {
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	position: relative;
+	margin: 0 8px 8px 0;
+	padding: 0 10px;
+	background: #495366;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 12.5px;
+	font-family: 'Source Sans Pro', Verdana, sans-serif;
+	font-weight: 500;
+}
+
+.tag-card:hover {
+	background: #49bf9d;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
