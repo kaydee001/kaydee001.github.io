@@ -49,11 +49,15 @@
 			
 		</style>
 	</head>
-	<body >
-				
+	<body>
+		
 		<div class="loader-container">
 			<div class="load-er"></div>
 		</div>
+
+		<audio autoplay loop>
+			<source src="assets/songs/bg.mp3" type="audio/mp3">  
+		</audio>
 
 		<!-- Header -->
 			<header id="header">
@@ -356,6 +360,11 @@
 
 				$(window).on("load", function(){
 					$(".loader-container").fadeOut(1000);
+				});
+
+				$(document).ready(function(){
+					var vol = document.getElementById("song");
+					vol.volume = 0.2;
 				});
 				
 				const form = document.getElementById("form");
