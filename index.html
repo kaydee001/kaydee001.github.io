@@ -25,8 +25,8 @@
 			}
 
 			.load-er {
-				width: 250px;
-				height: 25px;
+				width: 275px;
+				height: 20px;
 				display: inline-block;
 				background-color: #e5e9f0;
 				border: 1px solid #e5e9f0;
@@ -54,12 +54,6 @@
 		<div class="loader-container">
 			<div class="load-er"></div>
 		</div>
-
-		<!-- <iframe src="assets/songs/bg.mp3" allow="autoplay" style="display:none" id="iframeAudio"></iframe> 
-
-		<audio autoplay loop id="playAudio">
-			<source src="assets/songs/bg.mp3" type="audio/mp3">  
-		</audio> -->
 
 		<!-- Header -->
 			<header id="header">
@@ -355,27 +349,10 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-				// var loader = document.getElementById("loader-container");
-				// window.addEventListener("load", function(){
-				// 	loader.style.display = "none";
-				// });
 
-				// $(window).on("load", function(){
-				// 	$(".loader-container").fadeOut(1000);
-				// });
-
-				// var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-				// if (!isChrome){
-				// 	$('#iframeAudio').remove()
-				// }
-				// else {
-				// 	$('#playAudio').remove()
-				// }
-
-				// $(document).ready(function(){
-				// 	var vol = document.getElementById("playAudio");
-				// 	vol.volume = 0.5;
-				// });
+				$(window).on("load", function(){
+					$(".loader-container").fadeOut(1000);
+				});
 				
 				const form = document.getElementById("form");
 				const result = document.getElementById("result");
