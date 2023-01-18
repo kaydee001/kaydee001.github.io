@@ -12,32 +12,7 @@
 				font-family: TheBoysFont;
 				src: url('assets/fonts/Charlie_Dont_Surf.ttf');
 			}
-
-			.loader{
-				display: block;
-				position: relative;
-				height: 20px;
-				width: 40%;
-				border: 1px solid #e5e9f0;
-				border-radius: 10px;
-				overflow: hidden;
-			}
-			.loader:after{
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 0;
-				height: 100%;
-				width: 0;
-				background: #49bf9d;
-				animation: 6s prog ease-in infinite;
-			}
 			
-			@keyframes prog {
-				to  {   width: 100%;}
-			}
-      
-
 			.loader-container{
 				width: 100%;
 				height: 100vh;
@@ -47,20 +22,9 @@
 				align-items: center;
 				justify-content: center;
 				z-index: 9999;
-			}
-			
-			/* .loader-container{
-				width: 100%;
-				height: 100vh;
-				background-color: #2e3440;
-				position: fixed;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				z-index: 9999;
-			}  */
+			} 
 
-			/* .load-er {
+			.load-er {
 				width: 275px;
 				height: 20px;
 				display: inline-block;
@@ -81,19 +45,15 @@
 				100% {
 					background-position: 0 0;
 				}
-			} */
+			}
 			
 		</style>
 	</head>
 	<body>
 
 		<div class="loader-container">
-			<div class="loader"></div>
-		</div>
-
-		<!-- <div class="loader-container">
 			<div class="load-er"></div>
-		</div> -->
+		</div>
 
 		<!-- Header -->
 			<header id="header">
@@ -115,8 +75,8 @@
 						</header>
 						<p> I am a self-taught 3D Modeller and I use various software such as Blender, Autodesk Maya, Adobe Substance 3D Painter, Adobe Photoshop, and Adobe Premiere Pro to create 3D models and artwork.<br> 
 							I enjoy creating both stylized and realistic environments and am constantly striving to improve my skills in 3D modeling.<br>
+							In my free time, I love listening to all kinds of music and watching anime and memes for a good laugh.<br>
 							Also, I enjoy playing a variety of genres including Multiplayer FPS, and Strategy games along with <span style="font-family: TheBoysFont; color: rgb(175, 50, 50);">THE BOYS</span>.<br>
-							In my free time, I love listening to all kinds of music and watching anime and memes for a good laugh.<br> 
 							I am always on the lookout for new and exciting games to play and I enjoy spending my free time immersing myself in different virtual worlds.</p>
 						<!-- <ul class="actions">
 							<li><a href="#" class="button">Learn More</a></li>
@@ -311,7 +271,7 @@
 							</article>
 							<article class="col-6 col-12-xsmall work-item">
 								<a href="images/img/iceberg.png" class="image fit thumb"><img src="images/img/iceberg.png" alt="" /></a>
-								<h3>Floating Icebergs on Sea</h3>
+								<h3>Floating Iceberg on Sea</h3>
 								<!-- <p>Made using Blender 3D and Adobe Photoshop</p> -->
 								<span class="tag-card">Blender</span>
 								<span class="tag-card">Adobe Photoshop</span>
@@ -393,9 +353,6 @@
 				$(window).on("load", function(){
 					$(".loader-container").fadeOut(1000);
 				});
-				// $(window).on("load", function(){
-				// 	$(".loader-container").fadeOut(1000);
-				// });
 				
 				const form = document.getElementById("form");
 				const result = document.getElementById("result");
