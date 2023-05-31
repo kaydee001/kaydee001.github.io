@@ -51,8 +51,12 @@
 	</head>
 	<body>
 
-		<div class="loader-container">
+		<!-- <div class="loader-container">
 			<div class="load-er"></div>
+		</div> -->
+
+		<div id="preloader">
+			<span id="loading-percentage">0%</span>
 		</div>
 
 		<!-- Header -->
@@ -87,6 +91,24 @@
 					<section id="two">
 						<h2>Recent Work</h2>
 						<div class="row">
+							<article class="col-6 col-12-xsmall work-item">
+								<a href="images/img/traffic.png" class="image fit thumb"><img src="images/img/traffic.png" alt="" /></a>
+								<h3>Traffic Light on the Crosswalk</h3>
+								<!-- <p>Made using Blender 3D, Adobe Substance 3D Painter and Adobe Photoshop</p> -->
+								<span class="tag-card">Blender</span>
+								<span class="tag-card">Substance 3D Painter</span>
+								<span class="tag-card">Adobe Photoshop</span>
+								<span class="tag-card">Cycles X</span>
+							</article>
+							<article class="col-6 col-12-xsmall work-item">
+								<a href="images/img/piano.png" class="image fit thumb"><img src="images/img/piano.png" alt="" /></a>
+								<h3>Modern Upright Piano</h3>
+								<!-- <p>Made using Blender 3D, Adobe Substance 3D Painter and Adobe Photoshop</p> -->
+								<span class="tag-card">Blender</span>
+								<span class="tag-card">Substance 3D Painter</span>
+								<span class="tag-card">Adobe Photoshop</span>
+								<span class="tag-card">Cycles X</span>
+							</article>
 							<article class="col-6 col-12-xsmall work-item">
 								<a href="images/img/buster.png" class="image fit thumb"><img src="images/img/buster.png" alt="" /></a>
 								<h3>Buster Warenski Knife</h3>
@@ -349,8 +371,34 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
+				
+				// Percentage Counter
+				var loadingPercentage = document.getElementById("loading-percentage");
+				function updatePercentage(percentage) {
+					loadingPercentage.innerText = percentage + "%";
+				}
+				function setProgress(percentage) {
+					updatePercentage(percentage);
 
-				$(window).on("load", function(){
+					if (percentage === 100) 
+					{
+						// Hide the preloader after reaching 100%
+						setTimeout(function() {
+						var preloader = document.getElementById("preloader");
+						preloader.classList.add("hidden");
+						}, 1000); // Adjust the delay (in milliseconds) as needed
+					}
+				}
+				var progress = 0;
+				var interval = setInterval(function() {
+					setProgress(progress);
+					progress++;
+					if (progress > 100) {
+						clearInterval(interval);
+					}
+				}, 35); // Adjust the interval (in milliseconds) as needed
+
+				/* $(window).on("load", function(){
 					$(".loader-container").fadeOut(1000);
 				});
 				
