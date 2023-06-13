@@ -2,6 +2,12 @@
 <html>
 	<head>
 		<title>Portfolio Website</title>
+
+		<!-- bg music -->
+		<!-- <audio id="bg-music" src="assets/bg.mp3" controls autoplay loop>
+			Your browser does not support the audio element
+		</audio> -->
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -359,7 +365,7 @@
 						<li><a href="https://www.artstation.com/kaydee001" class="icon brands fa-artstation"><span class="label">Artstation</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; 2023</li><li>Get my <a href="https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link">Resume</a> here</li>
+						<li>Kartik &copy; 2023</li><li>Get my <a href="https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link">Resume</a> here</li>
 					</ul>
 				</div>
 			</footer>
@@ -372,8 +378,8 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-				
-				// Percentage Counter
+							
+				// Preloader Percentage Counter
 				var loadingPercentage = document.getElementById("loading-percentage");
 				function updatePercentage(percentage) {
 					loadingPercentage.innerText = percentage + "%";
@@ -397,12 +403,26 @@
 					if (progress > 100) {
 						clearInterval(interval);
 					}
-				}, 35); // Adjust the interval (in milliseconds) as needed
+				}, 5); // Adjust the interval (in milliseconds) as needed
+
+
+				/* Audio Controls
+				var audio = document.getElementById("bg-music");
+				audio.volume = 0.025; 
+				audio.playbackRate = 1.125;
+				function updateVolume(value) {
+					audio.volume = value;
+				}
+				function updatePlaybackSpeed(value) {
+					audio.playbackRate = value;
+				} */
+
 
 				/* $(window).on("load", function(){
 					$(".loader-container").fadeOut(1000);
 				}); */
-				
+			
+				// Get In Touch Form
 				const form = document.getElementById("form");
 				const result = document.getElementById("result");
 				form.addEventListener("submit", function(e){
