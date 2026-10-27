@@ -1,0 +1,218 @@
+[
+ {
+  "name": "room",
+  "title": "Traditional Japanese Hallway",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "tori",
+  "title": "Torii Gate in the Mountains",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · Cycles X",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "lofi",
+  "title": "Lo-fi Workspace",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · Cel Shading · EEVEE",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "axe",
+  "title": "Stone Axe",
+  "kind": "Prop",
+  "tags": "Blender · ZBrush · Substance 3D Painter · Marmoset Toolbag · Game Ready",
+  "w": 960,
+  "h": 768
+ },
+ {
+  "name": "skull",
+  "title": "Cheetah Skull",
+  "kind": "Prop",
+  "tags": "ZBrush · Substance 3D Painter · Photoshop · Cycles",
+  "w": 960,
+  "h": 768
+ },
+ {
+  "name": "onii",
+  "title": "Stylized Samurai Oni Mask",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "fire",
+  "title": "Stylized Fantasy Sword – Fire",
+  "kind": "Weapon",
+  "tags": "Blender · Substance 3D Painter · Photoshop · EEVEE",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "iceberg",
+  "title": "Floating Iceberg on Sea",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · EEVEE",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "museum",
+  "title": "Tree Museum",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · EEVEE",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "abstract",
+  "title": "Valley of Flowers",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · Cycles X",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "buster",
+  "title": "Buster Warenski Knife",
+  "kind": "Weapon",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "headphone",
+  "title": "Stylized Headphone",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "traffic",
+  "title": "Traffic Light on the Crosswalk",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 768,
+  "h": 960
+ },
+ {
+  "name": "piano",
+  "title": "Modern Upright Piano",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "aug",
+  "title": "Steyr AUG Submachine Gun",
+  "kind": "Weapon",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 505
+ },
+ {
+  "name": "glock",
+  "title": "Glock 17 Handgun",
+  "kind": "Weapon",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "flamethrower",
+  "title": "DIY Flamethrower",
+  "kind": "Weapon",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "ice",
+  "title": "Stylized Fantasy Sword – Ice",
+  "kind": "Weapon",
+  "tags": "Blender · Substance 3D Painter · Photoshop · EEVEE",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "camera",
+  "title": "Stylized Camera",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 720
+ },
+ {
+  "name": "boombox",
+  "title": "Stylized Boombox Set",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 720
+ },
+ {
+  "name": "radio",
+  "title": "Stylized Radio",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "tv",
+  "title": "Stylized TV",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 720
+ },
+ {
+  "name": "treasure",
+  "title": "Stylized Treasure Chest",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 720
+ },
+ {
+  "name": "cannon",
+  "title": "Stylized Field Cannon",
+  "kind": "Prop",
+  "tags": "Blender · Substance 3D Painter · Photoshop · Cycles X",
+  "w": 960,
+  "h": 720
+ },
+ {
+  "name": "op",
+  "title": "Statue in the Middle of Nowhere",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · Cycles X",
+  "w": 960,
+  "h": 540
+ },
+ {
+  "name": "garden",
+  "title": "Architectural Garden Statue",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · EEVEE",
+  "w": 960,
+  "h": 960
+ },
+ {
+  "name": "french",
+  "title": "Old French House Verandah",
+  "kind": "Environment",
+  "tags": "Blender · Photoshop · EEVEE",
+  "w": 960,
+  "h": 960
+ }
+]
