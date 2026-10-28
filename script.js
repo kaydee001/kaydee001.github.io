@@ -467,8 +467,11 @@ document.querySelectorAll('.range').forEach((range) => {
     button.addEventListener('focus', () => pick(button))
     button.addEventListener('click', () => pick(button))
   })
-  // Fetch every variant once the popup first opens, so swapping is instant
-  range.closest('dialog')?.addEventListener('toggle', () => picks.forEach((b) => (new Image().src = b.dataset.src)), { once: true })
+  // Fetch every variant once the page (or popup) has loaded, so swapping is instant
+  const preload = () => picks.forEach((b) => (new Image().src = b.dataset.src))
+  const dialog = range.closest('dialog')
+  if (dialog) dialog.addEventListener('toggle', preload, { once: true })
+  else addEventListener('load', preload, { once: true })
 })
 
 // Journey: how long each stop lasted (the current one keeps counting)
@@ -508,7 +511,7 @@ const status = document.getElementById('form-status')
 // Terminal lights: one per field, lit once that field is filled in properly
 const term = document.querySelector('.term')
 if (term && form) {
-  const fields = [...form.querySelectorAll('input:not([type="hidden"]), textarea')]
+  const fields = [...form.querySelectorAll('[name="name"], [name="email"], [name="message"]')]
   const dots = term.querySelectorAll('.term-dots i')
   const state = document.getElementById('term-state')
   const check = () => {
@@ -526,6 +529,33 @@ if (term && form) {
   form.addEventListener('reset', () => setTimeout(check))
 }
 
+// hCaptcha (Web3Forms' free sitekey): loaded only when the form is near, drawn in the site's theme
+const captchaBox = document.getElementById('captcha')
+let captchaId = null
+if (captchaBox) {
+  const theme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark')
+  // The normal widget is 303px wide; narrower forms (phones) get the compact one
+  const size = () => (captchaBox.clientWidth < 310 ? 'compact' : 'normal')
+  let drawnSize = null
+  const draw = () => {
+    captchaBox.replaceChildren()
+    drawnSize = size()
+    captchaId = window.hcaptcha.render(captchaBox, { sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2', theme: theme(), size: drawnSize })
+  }
+  addEventListener('resize', () => window.hcaptcha && drawnSize && size() !== drawnSize && draw())
+  window.onCaptchaLoad = draw
+  new IntersectionObserver((entries, observer) => {
+    if (!entries[0].isIntersecting) return
+    observer.disconnect()
+    const script = document.createElement('script')
+    script.src = 'https://js.hcaptcha.com/1/api.js?render=explicit&onload=onCaptchaLoad&recaptchacompat=off'
+    script.async = true
+    document.head.append(script)
+  }, { rootMargin: '400px' }).observe(captchaBox)
+  // Redraw in the new theme when it's switched
+  new MutationObserver(() => window.hcaptcha && draw()).observe(document.documentElement, { attributeFilter: ['data-theme'] })
+}
+
 // Each step of a send prints as a terminal line, one after another
 const wait = (ms) => new Promise((done) => setTimeout(done, reduceMotion ? 0 : ms))
 async function say(text, kind = '') {
@@ -540,9 +570,13 @@ form?.addEventListener('submit', async (event) => {
   event.preventDefault()
   const button = form.querySelector('button[type="submit"]')
   const name = form.elements.namedItem('name').value.trim().split(/\s+/)[0]
-  button.disabled = true
   status.className = 'form-status'
   status.replaceChildren()
+  if (captchaBox && !form.querySelector('[name="h-captcha-response"]')?.value) {
+    await say('Error: tick the captcha first.', 'is-error')
+    return
+  }
+  button.disabled = true
   await say('Sending...')
 
   try {
@@ -565,6 +599,7 @@ form?.addEventListener('submit', async (event) => {
     await say("Error: couldn't send. Try email instead.", 'is-error')
   } finally {
     button.disabled = false
+    if (captchaId !== null) window.hcaptcha?.reset(captchaId)
   }
 })
 

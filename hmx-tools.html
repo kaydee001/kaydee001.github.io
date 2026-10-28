@@ -14,7 +14,7 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="images/KD.png" />
+    <link rel="icon" href="images/kd-icon.png" />
     <script>
       // Theme before first paint: saved choice, else the OS preference
       try {
@@ -28,10 +28,14 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- The font loads without holding up the first paint; the mono fallback shows until it arrives -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" /></noscript>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -41,17 +45,17 @@
     </div>
     <header class="rail">
       <a class="rail-brand" href="index.html" aria-label="Kartik Dhasmana home">
-        <img src="images/KD.png" alt="" width="40" height="40" />
+        <img src="images/kd-80.webp" alt="" width="40" height="40" />
         <span class="rail-tip">Kartik Dhasmana</span>
       </a>
 
       <nav class="rail-nav" aria-label="Primary">
-        <a class="nav-link" href="index.html#about"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg><span class="nav-num">01</span><span class="rail-tip">About</span></a>
-        <a class="nav-link" href="index.html#experience"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1" /><path d="M9 7V4h6v3M3 12h18" /></svg><span class="nav-num">02</span><span class="rail-tip">Experience</span></a>
-        <a class="nav-link is-active" href="projects.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16" /></svg><span class="nav-num">03</span><span class="rail-tip">Projects</span></a>
-        <a class="nav-link" href="3d.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z" /><path d="m3 7 9 5 9-5M12 12v10" /></svg><span class="nav-num">04</span><span class="rail-tip">3D</span></a>
-        <a class="nav-link" href="index.html#contact"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1" /><path d="m3 7 9 6 9-6" /></svg><span class="nav-num">05</span><span class="rail-tip">Contact</span></a>
-        <a class="nav-link" href="https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link" target="_blank" rel="noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></svg><span class="nav-num">06</span><span class="rail-tip">Resume &#8599;</span></a>
+        <a class="nav-link" href="index.html#about" aria-label="About"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg><span class="nav-num">01</span><span class="rail-tip">About</span></a>
+        <a class="nav-link" href="index.html#experience" aria-label="Experience"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1" /><path d="M9 7V4h6v3M3 12h18" /></svg><span class="nav-num">02</span><span class="rail-tip">Experience</span></a>
+        <a class="nav-link is-active" href="projects.html" aria-label="Projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16" /></svg><span class="nav-num">03</span><span class="rail-tip">Projects</span></a>
+        <a class="nav-link" href="3d.html" aria-label="3D"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z" /><path d="m3 7 9 5 9-5M12 12v10" /></svg><span class="nav-num">04</span><span class="rail-tip">3D</span></a>
+        <a class="nav-link" href="index.html#contact" aria-label="Contact"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1" /><path d="m3 7 9 6 9-6" /></svg><span class="nav-num">05</span><span class="rail-tip">Contact</span></a>
+        <a class="nav-link" href="https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link" target="_blank" rel="noreferrer" aria-label="Resume (opens in a new tab)"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></svg><span class="nav-num">06</span><span class="rail-tip">Resume &#8599;</span></a>
       </nav>
 
       <button class="nav-link cmdk-btn" id="cmdk-open" type="button" aria-label="Open the command menu (Ctrl K)">
@@ -73,6 +77,7 @@
         <li><a class="cmdk-item" href="index.html#art" data-keys="3d art blender">Renders<span>04</span></a></li>
         <li><a class="cmdk-item" href="index.html#contact" data-keys="message hire talk">Contact<span>05</span></a></li>
         <li class="cmdk-group" role="presentation">pages</li>
+        <li><a class="cmdk-item" href="hmx-work.html" data-keys="hmx dell lenovo mclaren royal enfield seifert caps products">Client work @ HMX<span>page</span></a></li>
         <li><a class="cmdk-item" href="projects.html" data-keys="tools apps ai list">All projects<span>page</span></a></li>
         <li><a class="cmdk-item" href="3d.html" data-keys="renders art props weapons environments gallery">3D work<span>page</span></a></li>
         <li><a class="cmdk-item" href="hmx-tools.html" data-keys="case study blender add-ons">Pipeline Tools @ HMX<span>case</span></a></li>
@@ -95,7 +100,7 @@
     <main class="main">
       <section class="section page-head">
         <div class="wrap">
-          <nav class="page-nav" aria-label="Pages"><a href="projects.html" aria-label="Previous: Projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg><span>Projects</span></a><span class="page-pos">case 01 / 03</span><a href="pdf-qa.html" aria-label="Next: PDF Q&A"><span>PDF Q&A</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a></nav>
+          <nav class="page-nav" aria-label="Pages"><a href="projects.html" aria-label="Previous: Projects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg><span>Projects</span></a><span class="page-pos"><a class="page-home" href="index.html" aria-label="Home"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7" /><path d="M5 9.5V20h14V9.5" /><path d="M10 20v-6h4v6" /></svg></a>case 01 / 03</span><a href="pdf-qa.html" aria-label="Next: PDF Q&A"><span>PDF Q&A</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a></nav>
           <div class="case-head">
             <div>
               <p class="label"><span>[03]</span> Tool · case study</p>

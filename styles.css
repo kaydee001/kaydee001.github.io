@@ -1152,7 +1152,7 @@ h3 {
 
 .strip-item .tile-link img {
   width: auto;
-  height: clamp(240px, 54vh, 620px);
+  height: clamp(220px, 44vh, 480px);
 }
 
 .strip-item figcaption {
@@ -1990,7 +1990,8 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.features.is-dense .feature-body h3 {
+.features.is-dense .feature-body h3,
+.features.is-dense .feature-body h2 {
   font-size: clamp(1.2rem, 1.4vw, 1.5rem);
 }
 
@@ -2076,16 +2077,19 @@ h3 {
   color: var(--dim);
 }
 
-.feature-body h3 {
+.feature-body h3,
+.feature-body h2 {
   font-size: clamp(1.35rem, 1.8vw, 1.9rem);
 }
 
-.feature-body h3 a {
+.feature-body h3 a,
+.feature-body h2 a {
   color: inherit;
   text-decoration: none;
 }
 
-.feature-body h3 a:hover {
+.feature-body h3 a:hover,
+.feature-body h2 a:hover {
   color: var(--accent-ink);
 }
 
@@ -2969,7 +2973,7 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
-.work-group h3 {
+.work-group h2 {
   display: flex;
   gap: 8px;
   padding-top: 6px;
@@ -2980,11 +2984,11 @@ body {
   text-transform: uppercase;
 }
 
-.work-group h3 span {
+.work-group h2 span {
   color: var(--neon);
 }
 
-.work-group h3 em {
+.work-group h2 em {
   white-space: nowrap;
   color: var(--dim);
   font-style: normal;
@@ -3268,4 +3272,191 @@ body {
   .work-group ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+/* About: the resume as a clear call to action */
+.about-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin-top: 8px;
+}
+
+.about-cta .btn {
+  gap: 10px;
+}
+
+.about-cta .icon {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.about-cta > span {
+  color: var(--dim);
+  font-size: 0.82rem;
+}
+
+/* AI badges: the model next to the category */
+.feature-tag em {
+  color: var(--text);
+  font-style: normal;
+}
+
+/* Case study and fact panels: labels in the accent, like the About panel */
+.case-meta dt,
+.case-facts dt {
+  color: var(--accent-ink);
+  font-family: var(--mono);
+}
+
+/* Sub-page pager: readable over the dot field */
+.page-nav {
+  font-size: 0.88rem;
+}
+
+.page-nav a,
+.page-pos {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+}
+
+.page-nav a {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.page-nav a:hover {
+  border-color: var(--accent);
+}
+
+.page-pos {
+  color: var(--accent-ink);
+}
+
+/* Home: the four recent builds as compact side-by-side cards, still 2 x 2 */
+.features.is-compact .feature {
+  flex-direction: row;
+}
+
+.features.is-compact .feature-shot {
+  flex: 0 0 47%;
+  align-self: center;
+  aspect-ratio: 16 / 10;
+  margin: 14px 0 14px 14px;
+  padding: 6px;
+}
+
+.features.is-compact .feature-body {
+  gap: 11px;
+  min-width: 0;
+  padding: 24px 26px 24px 28px;
+}
+
+.features.is-compact .feature-body h3 {
+  font-size: clamp(1.25rem, 1.5vw, 1.6rem);
+}
+
+.features.is-compact .feature-body .muted {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.features.is-compact .feature-stack,
+.features.is-compact .feature-tag {
+  font-size: 0.78rem;
+}
+
+.features.is-compact .actions {
+  gap: 8px;
+  margin-top: auto;
+}
+
+.features.is-compact .btn {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 0.74rem;
+}
+
+@media (max-width: 1100px) {
+  .features.is-compact .feature {
+    flex-direction: column;
+  }
+
+  .features.is-compact .feature-shot {
+    flex: none;
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    margin: 12px 12px 0;
+  }
+}
+
+/* Client work page: a little more room for each client */
+.page-head + .section .work-list {
+  margin-top: 4px;
+}
+
+/* The client work launcher is a link now: no underline */
+.work-reel {
+  text-decoration: none;
+}
+
+/* The About text colours its links; keep the resume button's own colours */
+.about-cta .btn-primary {
+  color: var(--on-accent);
+  text-decoration: none;
+}
+
+.about-cta .btn-primary:hover {
+  color: #fff;
+}
+
+/* Contact form spam checks: the honeypot stays out of sight, the captcha sits above Send */
+.hp {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+.form-captcha {
+  min-height: 78px;
+  margin: 18px 0 4px;
+}
+
+/* Sub-page pager: a home link inside the page count */
+.page-pos {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-nav .page-home {
+  display: inline-flex;
+  padding: 0 10px 0 0;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: none;
+  color: var(--accent-ink);
+}
+
+.page-nav .page-home:hover {
+  color: var(--text);
+}
+
+.page-nav .page-home .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.page-nav .page-home:hover .icon {
+  transform: none;
+}
+
+/* The captcha frame keeps its own colour scheme, so the browser paints no white box behind it */
+.form-captcha iframe {
+  color-scheme: normal;
 }

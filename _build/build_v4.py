@@ -25,6 +25,8 @@ for node in ast.parse(build_src).body:
 assert builds and len(builds) == 16
 by_build = {b[0]: b for b in builds}
 labels = {"ai": "AI", "tools": "Tool", "apps": "App"}
+# The model behind each AI project, shown in its badge
+MODELS = {"PDF Q&A": "Llama 3.3 70B", "QueryMate": "Llama 3.3 70B", "DevDocs AI": "Llama 3.3 70B", "Image Classifiers": "ResNet18"}
 
 # Experience as a journey. Each result reads: what I did, how it showed (measured by), how I did it.
 # Everything here comes from the resume.
@@ -211,7 +213,9 @@ assert len(renders) == 27
 by_render = {r["name"]: r for r in renders}
 cat_of = {"Prop": "props", "Weapon": "weapons", "Environment": "environments"}
 
-RESUME = "https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link"
+# The resume: resume.pdf in the repo root once it's added (faster, never breaks), else the Drive copy
+RESUME_DRIVE = "https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link"
+RESUME = "resume.pdf" if (root / "resume.pdf").exists() else RESUME_DRIVE
 # Email is split so the address never appears whole in the HTML; script.js assembles it
 EMAIL_USER, EMAIL_DOMAIN = "kartik.dhasmana001", "gmail.com"
 TOOLS = ["Blender", "Substance 3D", "ZBrush", "Maya", "Unity", "Unreal Engine", "Python", "C#", "PySide6",
@@ -249,7 +253,7 @@ def head(title, desc, path=""):
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="images/KD.png" />
+    <link rel="icon" href="images/kd-icon.png" />
     <script>
       // Theme before first paint: saved choice, else the OS preference
       try {{
@@ -263,10 +267,14 @@ def head(title, desc, path=""):
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- The font loads without holding up the first paint; the mono fallback shows until it arrives -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" /></noscript>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -285,6 +293,7 @@ ICONS = {
     "experience": '<rect x="3" y="7" width="18" height="13" rx="1" /><path d="M9 7V4h6v3M3 12h18" />',
     "resume": '<path d="M14 3H6v18h12V7z" /><path d="M14 3v4h4M9 13h6M9 17h6" />',
     "prev": '<path d="M19 12H5M11 6l-6 6 6 6" />',
+    "home": '<path d="M3 11l9-7 9 7" /><path d="M5 9.5V20h14V9.5" /><path d="M10 20v-6h4v6" />',
     "next": '<path d="M5 12h14M13 6l6 6-6 6" />',
     "out": '<path d="M7 17 17 7M8 7h9v9" />',
     "search": '<circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />',
@@ -303,7 +312,7 @@ def pager(prev, nxt, pos):
     return (
         f'<nav class="page-nav" aria-label="Pages">'
         f'<a href="{ph}" aria-label="Previous: {pt}">{icon("prev")}<span>{pt}</span></a>'
-        f'<span class="page-pos">{pos}</span>'
+        f'<span class="page-pos"><a class="page-home" href="index.html" aria-label="Home">{icon("home")}</a>{pos}</span>'
         f'<a href="{nh}" aria-label="Next: {nt}"><span>{nt}</span>{icon("next")}</a>'
         f"</nav>"
     )
@@ -342,6 +351,7 @@ def palette(home):
             link("Contact", sec("#contact"), "message hire talk", "05"),
         ]),
         ("pages", [
+            link("Client work @ HMX", "hmx-work.html", "hmx dell lenovo mclaren royal enfield seifert caps products", "page"),
             link("All projects", "projects.html", "tools apps ai list", "page"),
             link("3D work", "3d.html", "renders art props weapons environments gallery", "page"),
             link("Pipeline Tools @ HMX", "hmx-tools.html", "case study blender add-ons", "case"),
@@ -380,18 +390,18 @@ def rail(active):
              ("04", "#art" if home else "3d.html", "3D", "3d"),
              ("05", "#contact" if home else "index.html#contact", "Contact", "contact")]
     nav = "".join(
-        f'        <a class="nav-link{" is-active" if key == active else ""}" href="{href}">{icon(key)}'
+        f'        <a class="nav-link{" is-active" if key == active else ""}" href="{href}" aria-label="{text}">{icon(key)}'
         f'<span class="nav-num">{n}</span><span class="rail-tip">{text}</span></a>\n'
         for n, href, text, key in items
     )
     return f"""    <header class="rail">
       <a class="rail-brand" href="index.html" aria-label="Kartik Dhasmana home">
-        <img src="images/KD.png" alt="" width="40" height="40" />
+        <img src="images/kd-80.webp" alt="" width="40" height="40" />
         <span class="rail-tip">Kartik Dhasmana</span>
       </a>
 
       <nav class="rail-nav" aria-label="Primary">
-{nav}        <a class="nav-link" href="{RESUME}" target="_blank" rel="noreferrer">{icon("resume")}<span class="nav-num">06</span><span class="rail-tip">Resume &#8599;</span></a>
+{nav}        <a class="nav-link" href="{RESUME}" target="_blank" rel="noreferrer" aria-label="Resume (opens in a new tab)">{icon("resume")}<span class="nav-num">06</span><span class="rail-tip">Resume &#8599;</span></a>
       </nav>
 
       <button class="nav-link cmdk-btn" id="cmdk-open" type="button" aria-label="Open the command menu (Ctrl K)">
@@ -484,8 +494,11 @@ def thumb(slug, name):
     return f'<span class="build-blank" aria-hidden="true">&gt; {escape(slug)}</span>'
 
 
+CLIENT_WORK = {}
+
+
 def builds_block(s):
-    """Selected client work under the stats: one card of each kind, and "Show all" opens the full list in a popup."""
+    """Selected client work under the stats: a launcher that links to the full list on hmx-work.html."""
     if not s.get("builds"):
         return ""
     items = globals()[s["builds"]]
@@ -508,7 +521,7 @@ def builds_block(s):
     def range_row(n, b):
         model, work, count, unit, url, variants = CLIENT_RANGES[b]
         picks = "".join(pick_button(i, *v) for i, v in enumerate(variants))
-        return f"""          <div class="work-group is-range"><h3><span>{n:02d}</span> {escape(b)}</h3>
+        return f"""          <div class="work-group is-range"><h2><span>{n:02d}</span> {escape(b)}</h2>
             <div class="range">
               <a class="range-view" href="{url}" target="_blank" rel="noreferrer">
                 <img src="images/hmx/var/{variants[0][0]}.webp" alt="{escape(b)} {escape(model)}" loading="lazy" />
@@ -524,39 +537,32 @@ def builds_block(s):
 """
 
     def grid_row(n, b):
-        return f"""          <div class="work-group"><h3><span>{n:02d}</span> {escape(b)}<em>{sum(1 for it in items if it[2] == b)}</em></h3>
+        return f"""          <div class="work-group"><h2><span>{n:02d}</span> {escape(b)}<em>{sum(1 for it in items if it[2] == b)}</em></h2>
             <ul>{"".join(f"<li>{card(*it, cls='build-card is-small')}</li>" for it in items if it[2] == b)}</ul>
           </div>
 """
 
     rows = "".join((range_row if b in CLIENT_RANGES else grid_row)(n, b) for n, b in enumerate(brands, 1))
+    # The full list goes on its own page (hmx-work.html), built after the index
+    CLIENT_WORK.update(rows=rows, count=len(items), brands=brands, also=s["also"])
     # The launcher: a slow reel of the work behind the count, and the whole panel opens the gallery
     shots = [it for it in items[:BUILDS_SHOWN] if (root / "images" / "hmx" / f"{it[0]}.webp").exists()]
     frames = "".join(f'<img src="images/hmx/{it[0]}.webp" alt="" loading="lazy" />' for it in shots)
     return f"""              <div class="xp-builds">
-                <button class="work-reel" id="work-open" type="button" aria-haspopup="dialog">
+                <a class="work-reel" href="hmx-work.html">
                   <span class="work-reel-info">
                     <span class="work-reel-label">Selected work</span>
                     <span class="xp-stat">{len(items)}<span>products · {len(brands)} brands</span></span>
                     <span class="work-reel-brands">{" · ".join(escape(b) for b in brands)}</span>
-                    <span class="work-reel-cta">Open gallery <span aria-hidden="true">&rarr;</span></span>
+                    <span class="work-reel-cta">See all client work <span aria-hidden="true">&rarr;</span></span>
                   </span>
                   <span class="work-reel-strip" aria-hidden="true"><span class="work-reel-track">{frames}{frames}</span></span>
-                </button>
+                </a>
                 <p class="xp-also">{also_html(s["also"])}</p>
               </div>
-              <dialog data-lenis-prevent class="skills panel work-all" id="work-all" aria-labelledby="work-title">
-                <div class="skills-head">
-                  <p class="label"><span>[~]</span> hmx media</p>
-                  <button class="icon-btn" id="work-close" type="button" aria-label="Close">&times;</button>
-                </div>
-                <h2 id="work-title" tabindex="-1">All client work</h2>
-                <div class="work-list">
-{rows}                </div>
-              </dialog>
 """
 
-def feature_card(name, num):
+def feature_card(name, num, h="h3"):
     """A project card: screenshot on top (or a terminal tile with its tag), then the pitch, the stack and the ways in."""
     b = by_build[name]
     case = CASES.get(name)
@@ -576,8 +582,8 @@ def feature_card(name, num):
                 {shot}
               </a>
               <div class="feature-body">
-                <p class="feature-tag"><span>{num:02d}</span> {labels[b[1]]}</p>
-                <h3><a href="{href}"{out}>{escape(name)}</a></h3>
+                <p class="feature-tag"><span>{num:02d}</span> {labels[b[1]]}{f" <em>· {MODELS[name]}</em>" if name in MODELS else ""}</p>
+                <{h}><a href="{href}"{out}>{escape(name)}</a></{h}>
                 <p class="muted">{escape(b[3])}</p>
                 <p class="feature-stack">{"".join(f"<span>{escape(t)}</span>" for t in b[4].split(" · "))}</p>
                 <div class="actions">{links}</div>
@@ -708,7 +714,7 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
                 If I see something cool, I try to make my own version. Most of it ends up on
                 <a href="https://github.com/kaydee001" target="_blank" rel="noreferrer">GitHub</a>.
               </p>
-              <p class="small">The formal version is on my <a href="{RESUME}" target="_blank" rel="noreferrer">resume</a>.</p>
+              <p class="about-cta"><a class="btn btn-primary" href="{RESUME}" target="_blank" rel="noreferrer">{icon("resume")}View my resume &#8599;</a><span>The formal version: experience, skills and education.</span></p>
             </div>
           </div>
 
@@ -752,7 +758,7 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
             </div>
             <a class="more" href="projects.html"><span class="more-count">{len(FEATURED)} of {len(builds)}</span> View all &rarr;</a>
           </div>
-          <div class="features">
+          <div class="features is-compact">
 {"".join(feature_card(n, i) for i, n in enumerate(FEATURED, 1))}          </div>
         </div>
       </section>
@@ -804,6 +810,9 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
               <label class="term-line"><span>&gt; Name:</span><input type="text" name="name" autocomplete="name" required /></label>
               <label class="term-line"><span>&gt; Email:</span><input type="email" name="email" autocomplete="email" required /></label>
               <label class="term-line is-multi"><span>&gt; Message:</span><textarea name="message" rows="4" required></textarea></label>
+              <!-- Spam checks: a hidden box only bots tick, and an hCaptcha (loaded when the form comes into view) -->
+              <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <div class="form-captcha" id="captcha"></div>
               <div class="form-end">
                 <button class="btn btn-primary" type="submit">[ Send ]</button>
                 <p class="form-status" id="form-status" role="status"></p>
@@ -848,7 +857,7 @@ projects = head("Projects | Kartik Dhasmana", "Tools, apps and AI experiments by
       <section class="section is-tight">
         <div class="wrap">
           <div class="features is-dense">
-{"".join(feature_card(b[0], i) for i, b in enumerate(builds, 1))}          </div>
+{"".join(feature_card(b[0], i, "h2") for i, b in enumerate(builds, 1))}          </div>
         </div>
       </section>
 
@@ -952,12 +961,33 @@ def case_page(name, prev, nxt, pos):
 """
 
 
+# ---------------------------------------------------------------- client work
+cw = CLIENT_WORK
+client_page = head("Client work @ HMX | Kartik Dhasmana",
+                   "3D web and AR product work at HMX Media for Dell, Lenovo, McLaren, Royal Enfield and C.L. Seifert.",
+                   "hmx-work.html") + rail("experience") + page_head(
+    "hmx media", ("index.html#experience", "Experience"), ("projects.html", "Projects"), "02", "client work", "Client work",
+    f"{cw['count']} products I've worked on at HMX Media, for {len(cw['brands'])} brands. Point at a colour to swap the view, "
+    "or click through to the product page.", "",
+) + f"""
+      <section class="section is-tight">
+        <div class="wrap">
+          <div class="work-list">
+{cw['rows']}          </div>
+          <p class="xp-also">{also_html(cw['also'])}</p>
+        </div>
+      </section>
+
+""" + FOOT + LIBS + """  </body>
+</html>
+"""
+
 case_pages = [
     ("hmx-tools.html", case_page("Pipeline Tools @ HMX", ("projects.html", "Projects"), ("pdf-qa.html", "PDF Q&A"), "case 01 / 03")),
     ("pdf-qa.html", case_page("PDF Q&A", ("hmx-tools.html", "Pipeline Tools @ HMX"), ("asset-viewer.html", "Asset Viewer"), "case 02 / 03")),
     ("asset-viewer.html", case_page("Asset Viewer", ("pdf-qa.html", "PDF Q&A"), ("projects.html", "Projects"), "case 03 / 03")),
 ]
 
-for fname, html in [("index.html", index), ("projects.html", projects), ("3d.html", gallery)] + case_pages:
+for fname, html in [("index.html", index), ("hmx-work.html", client_page), ("projects.html", projects), ("3d.html", gallery)] + case_pages:
     (out / fname).write_text(html, encoding="utf-8", newline="")
     print(fname, html.count("<section"), html.count("</section>"), html.count("<div"), html.count("</div>"))
