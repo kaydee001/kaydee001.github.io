@@ -62,7 +62,7 @@ JOURNEY = [
         "why": "I get product models ready for web 3D: baking AO, lighting and rendering. I also build tools that make the pipeline faster.",
         "wins": [
             ("90+", "products", "Shipped 3D web and AR experiences",
-             "For Dell and Lenovo alone, from model to interaction, using the in-house visual scripting tool.", None),
+             "For Dell and Lenovo alone, from model to interaction.", None),
             ("~35%", "lighter files", "Made models load faster",
              "Cleaned up UVs, baked AO and HDR lighting, and optimised meshes and textures.", None),
             ("4+", "team tools", "Took the busywork out of asset prep",
@@ -135,40 +135,28 @@ BUILDS_SHOWN = 12  # the rest open with "Show all"
 CASES = {
     "Pipeline Tools @ HMX": {
         "slug": "hmx-tools",
-        "summary": "Small tools I built around the 3D work at HMX Media, so the team spends less time on repetitive file work and more on the actual 3D.",
+        "summary": "Small tools I built around the 3D work at HMX Media, so the team spends less time on repetitive work and more on the actual 3D.",
         "image": None,
         "meta": [("type", "Work · tools"), ("stack", "Python · Blender API"), ("where", "HMX Media"),
                  ("used by", "the whole 3D team")],
         "what": [
-            "A lot of 3D production is file work: the same steps on every asset, for every client. "
-            "I build small tools that take those steps off the team's plate.",
-            "I write them with AI as a co-pilot. I know the pipeline, so I know exactly what to ask for "
-            "and how to check what comes back. That's what makes them quick to build.",
+            "Every 3D team has repetitive work that eats into the time for the actual 3D. "
+            "I build small tools that take it off the team's plate.",
+            "I write them with AI as a co-pilot. Knowing the 3D side means I know what to ask for "
+            "and how to check what comes back, which makes them quick to build.",
         ],
         "steps_title": "What I built",
-        # name, problem, what it does, before → after, screenshot in images/hmx-tools/
+        # name, what it does, result
         "tools": [
-            ("AR project generator",
-             "Every new AR project meant creating its folders by hand, then copying, renaming and editing the files inside them.",
-             "A simple .exe. Enter a project name and a destination, and it creates the folders and handles some of the file setup.",
-             "~30–40% less time", "ar-project-generator.webp"),
-            ("Blender add-on for AR",
-             "A lot of time went into finding and fixing errors, with one-off scripts written as each issue came up.",
-             "Combines those scripts into one add-on, so the fixes are in one place.",
-             "~30–40% less time", "ar-addon.webp"),
-            ("Blender add-on for real-time work",
-             "The same problem on our real-time work: time spent finding and fixing errors, with scripts written one at a time.",
-             "The same idea for real-time work: those scripts, combined into one add-on.",
-             "~30–40% less time", "realtime-addon.webp"),
-            ("File tool + screenshot generator",
-             "More repetitive file work done by hand and an existing screenshot generator that could be quicker.",
-             "Handles the file work and improves the existing screenshot generator: faster, without losing what it already did.",
-             "~30–40% less time", "file-tool-screenshots.webp"),
+            ("AR project setup tool", "Gets a new AR project set up and ready to work on.", "~30–40% less time"),
+            ("Blender add-on for AR", "Brings common fixes for AR assets together in one place.", "~30–40% less time"),
+            ("Blender add-on for real-time work", "Does the same for real-time assets.", "~30–40% less time"),
+            ("File and screenshot tool", "Speeds up repetitive file work and screenshots.", "~30–40% less time"),
         ],
         "note": "Plus a steady stream of Blender Python scripts for my own work, whenever something repeats.",
         "facts_title": "In short",
         "facts": [("tools", "2 file tools and 2 Blender add-ons"), ("used by", "the whole 3D team"),
-                  ("built with", "Python, the Blender API and AI"), ("why", "less repetitive work on every asset")],
+                  ("built with", "Python, the Blender API and AI"), ("why", "less repetitive work")],
     },
     "PDF Q&A": {
         "slug": "pdf-qa",
@@ -971,15 +959,11 @@ gallery = head("3D | Kartik Dhasmana", "3D props, weapons and environments by Ka
 
 
 # ---------------------------------------------------------------- case studies
-def tool_block(name, problem, does, result, shot):
-    """One tool on a case page: its facts, then the screenshot once the file exists."""
-    media = ""
-    if (root / "images" / "hmx-tools" / shot).exists():
-        media = f'<figure class="case-shot"><img src="images/hmx-tools/{shot}" alt="{escape(name)}, screenshot" loading="lazy" /></figure>'
+def tool_block(name, does, result):
+    """One tool on a case page: what it does and the result."""
     return f"""<article class="tool">
               <h3>{escape(name)}</h3>
-              <dl class="case-facts panel"><div><dt>problem</dt><dd>{escape(problem)}</dd></div><div><dt>does</dt><dd>{escape(does)}</dd></div><div><dt>result</dt><dd>{escape(result)}</dd></div></dl>
-              {media}
+              <dl class="case-facts panel"><div><dt>does</dt><dd>{escape(does)}</dd></div><div><dt>result</dt><dd>{escape(result)}</dd></div></dl>
             </article>"""
 
 

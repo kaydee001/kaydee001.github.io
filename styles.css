@@ -1690,33 +1690,21 @@ h3 {
   line-height: 1.6;
 }
 
-/* Case study: one block per tool, facts beside the screenshot */
+/* Case study: one block per tool */
 .tools {
   display: grid;
-  gap: clamp(32px, 3.5vw, 56px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 3.5vw, 56px) clamp(16px, 2vw, 28px);
 }
 
 .tool {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  align-items: start;
-  gap: 16px clamp(16px, 2vw, 28px);
-}
-
-.tool h3 {
-  grid-column: 1 / -1;
-}
-
-.tool .case-facts:last-child {
-  grid-column: 1 / -1;
-}
-
-.tool .feature-shot {
-  margin: 0;
+  align-content: start;
+  gap: 16px;
 }
 
 @media (max-width: 760px) {
-  .tool {
+  .tools {
     grid-template-columns: minmax(0, 1fr);
   }
 }
