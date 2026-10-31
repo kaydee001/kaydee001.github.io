@@ -472,19 +472,6 @@ h3 {
   text-underline-offset: 3px;
 }
 
-.more {
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.more:hover {
-  color: var(--accent-ink);
-}
-
 .section-top {
   display: flex;
   align-items: end;
@@ -699,7 +686,9 @@ h3 {
   align-items: center;
   gap: 12px;
   flex: 0 0 auto;
-  padding: 0 22px 0 0;
+  /* The hover fill runs to the edge of the bar; the label stays in the column */
+  margin-left: calc(var(--inset) * -1);
+  padding: 0 22px 0 var(--inset);
   border: 0;
   border-right: 1px solid var(--line);
   background: transparent;
@@ -731,6 +720,7 @@ h3 {
   min-width: 0;
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  cursor: var(--cursor-link);
 }
 
 .marquee-track {
@@ -995,7 +985,7 @@ h3 {
 }
 
 .stop.is-next .stop-node {
-  top: -4px;
+  top: 11px;
 }
 
 .stop.is-next .stop-node {
@@ -1004,24 +994,12 @@ h3 {
 }
 
 .stop-next {
-  display: inline-flex;
-  align-items: center;
   gap: 8px;
-  color: var(--dim);
-  font-size: 0.86rem;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: color 0.2s;
 }
 
 .stop-next .icon {
   width: 15px;
   height: 15px;
-}
-
-.stop-next:hover {
-  color: var(--accent-ink);
 }
 
 .xp-when {
@@ -1118,7 +1096,7 @@ h3 {
   gap: 10px;
 }
 
-.strip-controls .more {
+.strip-controls .btn {
   margin-right: 12px;
 }
 
@@ -1637,6 +1615,10 @@ h3 {
   gap: clamp(48px, 5vw, 88px);
 }
 
+.case > .btn {
+  justify-self: start;
+}
+
 .case-shot {
   max-width: 1000px;
   margin: 0;
@@ -1706,6 +1688,37 @@ h3 {
 .steps span {
   color: var(--muted);
   line-height: 1.6;
+}
+
+/* Case study: one block per tool, facts beside the screenshot */
+.tools {
+  display: grid;
+  gap: clamp(32px, 3.5vw, 56px);
+}
+
+.tool {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 16px clamp(16px, 2vw, 28px);
+}
+
+.tool h3 {
+  grid-column: 1 / -1;
+}
+
+.tool .case-facts:last-child {
+  grid-column: 1 / -1;
+}
+
+.tool .feature-shot {
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .tool {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* Footer */
@@ -1946,7 +1959,8 @@ h3 {
   list-style: none;
 }
 
-.viewer-info .more {
+.viewer-info .btn {
+  align-self: flex-start;
   margin-top: 8px;
 }
 
@@ -2022,6 +2036,49 @@ h3 {
 .feature-shot.is-code span::before {
   content: "> ";
   color: var(--dim);
+}
+
+/* Line drawings on cards with no screenshot */
+.thumb {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px var(--text-glow));
+}
+
+.thumb .t-dim {
+  stroke: color-mix(in srgb, var(--accent-ink) 45%, var(--line-2));
+}
+
+.thumb .t-soft {
+  fill: var(--glow);
+  stroke: none;
+}
+
+.thumb .t-solid {
+  fill: var(--bg);
+}
+
+.thumb .t-dot {
+  fill: var(--accent-ink);
+  stroke: none;
+}
+
+.thumb .t-thick {
+  stroke-width: 3;
+}
+
+.thumb text {
+  fill: var(--accent-ink);
+  stroke: none;
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 600;
 }
 
 /* Card buttons: all the same outline, no glow */
@@ -2781,6 +2838,17 @@ h2 {
 
 .more-count::after {
   content: " ·";
+}
+
+.btn .more-count {
+  color: inherit;
+  opacity: 0.8;
+}
+
+.section-end {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(24px, 2.5vw, 40px);
 }
 
 @media (max-width: 1180px) {

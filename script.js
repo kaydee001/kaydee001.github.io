@@ -452,6 +452,9 @@ for (const [id, openId, closeId] of [['skills', 'skills-open', 'skills-close'], 
   dialog.addEventListener('close', () => lenis?.start())
 }
 
+// The skills marquee opens the same list as its button
+document.querySelector('.marquee')?.addEventListener('click', () => document.getElementById('skills-open').click())
+
 // Client ranges: pointing at, focusing or tapping a variant swaps the big view to it
 document.querySelectorAll('.range').forEach((range) => {
   const view = range.querySelector('.range-view img')

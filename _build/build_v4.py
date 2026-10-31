@@ -62,11 +62,11 @@ JOURNEY = [
         "why": "I get product models ready for web 3D: baking AO, lighting and rendering. I also build tools that make the pipeline faster.",
         "wins": [
             ("90+", "products", "Shipped 3D web and AR experiences",
-             "For Dell and Lenovo alone. From model to interaction, using the in-house visual scripting tool.", None),
+             "For Dell and Lenovo alone, from model to interaction, using the in-house visual scripting tool.", None),
             ("~35%", "lighter files", "Made models load faster",
              "Cleaned up UVs, baked AO and HDR lighting, and optimised meshes and textures.", None),
             ("4+", "team tools", "Took the busywork out of asset prep",
-             "2–3 file tools and 2 Blender add-ons, used by the whole team. Built in Python, with AI as a co-pilot.", None),
+             "2 file tools and 2 Blender add-ons, used by the whole team. Built in Python, with AI as a co-pilot.", None),
             ("5", "global brands", "Worked on products for big clients",
              "Dell, Lenovo, Royal Enfield, McLaren and C.L. Seifert.", None),
         ],
@@ -146,15 +146,29 @@ CASES = {
             "and how to check what comes back. That's what makes them quick to build.",
         ],
         "steps_title": "What I built",
-        "steps": [
-            ("files", "2–3 tools for file operations that the team used to do by hand."),
-            ("add-ons", "2 Blender add-ons, built into the team's everyday Blender setup."),
-            ("scripts", "A steady stream of Blender Python scripts for my own work, whenever something repeats."),
+        # name, problem, what it does, before → after, screenshot in images/hmx-tools/
+        "tools": [
+            ("AR project generator",
+             "Every new AR project meant creating its folders by hand, then copying, renaming and editing the files inside them.",
+             "A simple .exe. Enter a project name and a destination, and it creates the folders and handles some of the file setup.",
+             "~30–40% less time", "ar-project-generator.webp"),
+            ("Blender add-on for AR",
+             "A lot of time went into finding and fixing errors, with one-off scripts written as each issue came up.",
+             "Combines those scripts into one add-on, so the fixes are in one place.",
+             "~30–40% less time", "ar-addon.webp"),
+            ("Blender add-on for real-time work",
+             "The same problem on our real-time work: time spent finding and fixing errors, with scripts written one at a time.",
+             "The same idea for real-time work: those scripts, combined into one add-on.",
+             "~30–40% less time", "realtime-addon.webp"),
+            ("File tool + screenshot generator",
+             "More repetitive file work done by hand and an existing screenshot generator that could be quicker.",
+             "Handles the file work and improves the existing screenshot generator: faster, without losing what it already did.",
+             "~30–40% less time", "file-tool-screenshots.webp"),
         ],
+        "note": "Plus a steady stream of Blender Python scripts for my own work, whenever something repeats.",
         "facts_title": "In short",
-        "facts": [("tools", "2–3 file tools and 2 Blender add-ons"), ("used by", "the whole 3D team"),
+        "facts": [("tools", "2 file tools and 2 Blender add-ons"), ("used by", "the whole 3D team"),
                   ("built with", "Python, the Blender API and AI"), ("why", "less repetitive work on every asset")],
-        "note": "",
     },
     "PDF Q&A": {
         "slug": "pdf-qa",
@@ -214,7 +228,7 @@ by_render = {r["name"]: r for r in renders}
 cat_of = {"Prop": "props", "Weapon": "weapons", "Environment": "environments"}
 
 # The resume: resume.pdf in the repo root once it's added (faster, never breaks), else the Drive copy
-RESUME_DRIVE = "https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=share_link"
+RESUME_DRIVE = "https://drive.google.com/file/d/1beKRxJsIhH8V-t0NbYfZ4qD8lMVYGmjG/view?usp=sharing"
 RESUME = "resume.pdf" if (root / "resume.pdf").exists() else RESUME_DRIVE
 # Email is split so the address never appears whole in the HTML; script.js assembles it
 EMAIL_USER, EMAIL_DOMAIN = "kartik.dhasmana001", "gmail.com"
@@ -347,7 +361,7 @@ def palette(home):
             link("About", sec("#about"), "me bio facts", "01"),
             link("Experience", sec("#experience"), "work jobs journey hmx myracle", "02"),
             link("Projects", sec("#work"), "builds code", "03"),
-            link("Renders", sec("#art"), "3d art blender", "04"),
+            link("3D", sec("#art"), "renders art blender", "04"),
             link("Contact", sec("#contact"), "message hire talk", "05"),
         ]),
         ("pages", [
@@ -435,7 +449,7 @@ FOOT = f"""      <footer class="foot">
         <p class="viewer-kind" id="viewer-kind"></p>
         <p class="viewer-sub" id="viewer-sub">Made with</p>
         <ul class="viewer-tags" id="viewer-tags"></ul>
-        <a class="more" href="https://www.artstation.com/kaydee001" target="_blank" rel="noreferrer">More on ArtStation &#8599;</a>
+        <a class="btn" href="https://www.artstation.com/kaydee001" target="_blank" rel="noreferrer">More on ArtStation &#8599;</a>
         <div class="viewer-controls">
           <button type="button" id="viewer-prev" aria-label="Previous image">&larr;</button>
           <button type="button" id="viewer-next" aria-label="Next image">&rarr;</button>
@@ -516,7 +530,7 @@ def builds_block(s):
         attrs = f'data-src="images/hmx/var/{img}.webp" data-label="{escape(label)}" aria-label="{escape(label)}" title="{escape(label)}"'
         if sw:
             return f'<button class="{cls}" type="button" {attrs} style="--sw: {sw}"></button>'
-        return f'<button class="{cls}" type="button" {attrs}><img src="images/hmx/var/{img}.webp" alt="" loading="lazy" /></button>'
+        return f'<button class="{cls}" type="button" {attrs}><img src="images/hmx/var/{img}.webp" alt="{escape(label)}" loading="lazy" /></button>'
 
     def range_row(n, b):
         model, work, count, unit, url, variants = CLIENT_RANGES[b]
@@ -547,7 +561,7 @@ def builds_block(s):
     CLIENT_WORK.update(rows=rows, count=len(items), brands=brands, also=s["also"])
     # The launcher: a slow reel of the work behind the count, and the whole panel opens the gallery
     shots = [it for it in items[:BUILDS_SHOWN] if (root / "images" / "hmx" / f"{it[0]}.webp").exists()]
-    frames = "".join(f'<img src="images/hmx/{it[0]}.webp" alt="" loading="lazy" />' for it in shots)
+    frames = "".join(f'<img src="images/hmx/{it[0]}.webp" alt="{escape(it[1])}, 3D product viewer" loading="lazy" />' for it in shots)
     return f"""              <div class="xp-builds">
                 <a class="work-reel" href="hmx-work.html">
                   <span class="work-reel-info">
@@ -562,8 +576,77 @@ def builds_block(s):
               </div>
 """
 
+# Line drawings for projects with no screenshot: what each one does, in a 320 x 180 box.
+# Classes (styles.css): t-dim is the quiet line, t-soft a tinted fill, t-solid hides what's behind, t-dot a solid dot.
+NN_LAYERS = [(90, [50, 90, 130]), (160, [39, 73, 107, 141]), (230, [70, 110])]
+THUMBS = {
+    "Pipeline Tools @ HMX": """
+      <path class="t-dim t-solid" d="M56 48h30l14 14v50H56z" /><path class="t-dim t-solid" d="M64 56h30l14 14v50H64z" />
+      <path class="t-solid" d="M72 64h30l14 14v50H72z" /><path d="M102 64v14h14M84 96h20M84 108h20M84 120h12" />
+      <path class="t-dim" stroke-dasharray="4 6" d="M132 92h34" /><path d="M166 82l10 10-10 10" />
+      <path class="t-soft" d="M230 48l38 22-38 22-38-22z" />
+      <path d="M230 48l38 22v44l-38 22-38-22V70zM230 92v44M230 92l-38-22M230 92l38-22" />
+      <circle class="t-dot" cx="230" cy="48" r="3" /><circle class="t-dot" cx="268" cy="70" r="3" /><circle class="t-dot" cx="192" cy="70" r="3" />
+      <circle class="t-dot" cx="230" cy="92" r="3" /><circle class="t-dot" cx="268" cy="114" r="3" /><circle class="t-dot" cx="192" cy="114" r="3" /><circle class="t-dot" cx="230" cy="136" r="3" />""",
+    "DevDocs AI": """
+      <path class="t-soft" d="M60 46h44l18 18v70H60z" /><path d="M60 46h44l18 18v70H60zM104 46v18h18" />
+      <text x="91" y="106" text-anchor="middle">.py</text>
+      <path class="t-dim" stroke-dasharray="4 6" d="M140 90h30" /><path d="M170 80l10 10-10 10" />
+      <rect x="198" y="40" width="72" height="100" rx="2" />
+      <path d="M210 60h48M210 74h48" /><path class="t-dim" d="M210 88h48M210 102h32" /><path d="M212 122l7 7 13-15" />""",
+    "File Ingestor": """
+      <path class="t-soft" d="M44 62h28l12 12v44H44z" /><path d="M44 62h28l12 12v44H44zM72 62v12h12" />
+      <path class="t-dim" d="M100 90h50M150 90c30 0 26-40 56-40M150 90c30 0 26 40 56 40" />
+      <circle class="t-dot" cx="150" cy="90" r="5" />
+      <rect x="212" y="30" width="64" height="40" rx="2" /><path d="M232 50l8 8 16-16" />
+      <rect class="t-dim" stroke-dasharray="4 5" x="212" y="110" width="64" height="40" rx="2" /><path class="t-dim" d="M236 122l16 16M252 122l-16 16" />""",
+    "Blender Tools": """
+      <path class="t-soft" d="M133 74.5l27 15.5v31l-27-15.5z" />
+      <path d="M160 28l54 31v62l-54 31-54-31V59zM160 90v62M160 90l-54-31M160 90l54-31" />
+      <path class="t-dim" d="M133 43.5l54 31M187 43.5l-54 31M106 90l54 31M133 74.5v62M214 90l-54 31M187 74.5v62" />
+      <circle class="t-dot" cx="160" cy="28" r="3" /><circle class="t-dot" cx="214" cy="59" r="3" /><circle class="t-dot" cx="106" cy="59" r="3" /><circle class="t-dot" cx="160" cy="90" r="3" />
+      <circle class="t-dot" cx="214" cy="121" r="3" /><circle class="t-dot" cx="106" cy="121" r="3" /><circle class="t-dot" cx="160" cy="152" r="3" />""",
+    "Asset Pipeline CLI": """
+      <rect x="64" y="34" width="192" height="112" rx="3" /><path d="M64 52h192" />
+      <circle class="t-dot" cx="75" cy="43" r="2" /><circle class="t-dot" cx="84" cy="43" r="2" /><circle class="t-dot" cx="93" cy="43" r="2" />
+      <path d="M80 68l8 6-8 6M96 82h36" />
+      <path class="t-dim" d="M80 100h96M80 114h132M80 128h64" /><path d="M192 100h28M226 114h8M162 128h36" />""",
+    "Wi-Fi Usage Tracker": """
+      <circle class="t-dot" cx="160" cy="84" r="4" />
+      <path d="M142 66a26 26 0 0 1 36 0M128 52a46 46 0 0 1 64 0" /><path class="t-dim" d="M114 38a66 66 0 0 1 92 0" />
+      <path class="t-dim" d="M64 148h192" /><path d="M64 138l24-8 24 5 24-14 24 9 24-6 24 7 24-13 24 4" />""",
+    "Pomodoro Timer": """
+      <circle class="t-dim" cx="160" cy="90" r="58" />
+      <circle class="t-thick" cx="160" cy="90" r="58" pathLength="100" stroke-dasharray="72 100" transform="rotate(-90 160 90)" />
+      <text x="160" y="100" text-anchor="middle">25:00</text>""",
+    "Neural Net Basics": '<path class="t-dim" d="' + "".join(
+        f"M{x1} {y1}L{x2} {y2}" for (x1, ys1), (x2, ys2) in zip(NN_LAYERS, NN_LAYERS[1:]) for y1 in ys1 for y2 in ys2
+    ) + '" />' + "".join(
+        f'<circle class="t-solid" cx="{x}" cy="{y}" r="9" />' for x, ys in NN_LAYERS for y in ys
+    ),
+    "Drone Game": """
+      <path class="t-dim" stroke-dasharray="4 6" d="M30 156c40 14 58-4 74-22M216 46c24-24 50-22 74-8" />
+      <path d="M118 56l84 68M202 56l-84 68" />
+      <circle class="t-soft" cx="118" cy="56" r="24" /><circle class="t-soft" cx="202" cy="56" r="24" /><circle class="t-soft" cx="118" cy="124" r="24" /><circle class="t-soft" cx="202" cy="124" r="24" />
+      <circle cx="118" cy="56" r="24" /><circle cx="202" cy="56" r="24" /><circle cx="118" cy="124" r="24" /><circle cx="202" cy="124" r="24" />
+      <circle class="t-dot" cx="118" cy="56" r="3" /><circle class="t-dot" cx="202" cy="56" r="3" /><circle class="t-dot" cx="118" cy="124" r="3" /><circle class="t-dot" cx="202" cy="124" r="3" />
+      <rect class="t-solid" x="144" y="76" width="32" height="28" rx="4" /><path class="t-dim" d="M152 84h16" />""",
+}
+
+
+SHOT_ALT = {
+    "assetviewer.webp": "Asset Viewer showing a grey cube on a grid",
+    "audio.webp": "Audio Spectrum Analyzer showing a waveform and a frequency spectrum",
+    "dashboard.webp": "Asset Pipeline Dashboard showing file stats and duplicates",
+    "gitgui.webp": "Git Client window showing a repository's status",
+    "mlcv.webp": "Grid of flower photos with their predicted labels",
+    "pdfqa.webp": "PDF Q&A app with a sample PDF uploaded",
+    "querymate.webp": "QueryMate app with a database sidebar and a question box",
+}
+
+
 def feature_card(name, num, h="h3"):
-    """A project card: screenshot on top (or a terminal tile with its tag), then the pitch, the stack and the ways in."""
+    """A project card: screenshot on top (or a line drawing of what it does), then the pitch, the stack and the ways in."""
     b = by_build[name]
     case = CASES.get(name)
     href = f'{case["slug"]}.html' if case else b[5][0][1]
@@ -572,10 +655,10 @@ def feature_card(name, num, h="h3"):
     if case:
         links = f'<a class="btn" href="{href}">Case study &rarr;</a>' + links
     if b[2].endswith(".webp"):
-        shot = f'<img src="images/projects/{b[2]}" alt="" loading="lazy" />'
+        shot = f'<img src="images/projects/{b[2]}" alt="{escape(SHOT_ALT[b[2]])}" loading="lazy" />'
         kind = ""
     else:
-        shot = f"<span>{escape(b[2])}</span>"
+        shot = f'<svg class="thumb" viewBox="0 0 320 180" aria-hidden="true">{THUMBS[name]}</svg>'
         kind = " is-code"
     return f"""            <article class="feature panel reveal" data-category="{b[1]}">
               <a class="feature-shot{kind}" href="{href}"{out} tabindex="-1" aria-hidden="true">
@@ -651,10 +734,10 @@ made_with = ('<p class="made-with"><span>Made with</span>'
              + "".join(f'<span class="tag">{t}</span>' for t in MADE_WITH) + "</p>")
 
 # ---------------------------------------------------------------- index
-FEATURED = ["PDF Q&A", "Asset Viewer", "Git Client", "QueryMate"]
+FEATURED = ["Pipeline Tools @ HMX", "Asset Viewer", "Git Client", "PDF Q&A"]
 home_renders = ["room", "onii", "fire", "tori", "skull", "lofi", "axe", "iceberg"]
 
-index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I make 3D stuff, tools and whatever else I get curious about.") + rail(None) + f"""      <!-- Hero: live viewport with the intro laid over it -->
+index = head("Kartik Dhasmana", "Kartik Dhasmana: half 3D artist, half developer. I build 3D for the web and the tools that speed it up.") + rail(None) + f"""      <!-- Hero: live viewport with the intro laid over it -->
       <section class="hero frame" id="top">
         <div class="viewport" id="viewport" aria-hidden="true">
           <canvas id="viewport-canvas"></canvas>
@@ -669,7 +752,7 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
         <div class="hero-copy">
           {section_label("00", "hello world")}
           <h1 class="console" id="hero-title">Hi, I'm Kartik :)</h1>
-          <p class="lede">I make 3D stuff, tools and whatever else I get curious about.</p>
+          <p class="lede">Half 3D artist, half developer. I make 3D stuff, tools and whatever else I get curious about.</p>
           <div class="actions">
             <a class="btn btn-primary" href="projects.html">See what I've made</a>
             <a class="btn" href="#contact">Get in touch</a>
@@ -700,32 +783,32 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
             <h2 data-scramble>A bit about me</h2>
             <div class="prose">
               <p>
-                I'm a real-time artist. I make 3D for the web and AR, and I build tools that
-                help teams work faster. Outside of work, I make small apps and AI projects,
-                mostly to see how things work.
+                I'm the kind of person who sees something cool and immediately needs to know how
+                it works. The fastest way I've found to figure it out is to build my own version.
               </p>
               <p>
-                I studied computer science, with a focus on gaming tech, at VIT Bhopal. My first
-                job was making AR lessons for school kids at Myracle.io, which was featured on
-                Shark Tank India. I've been doing 3D since college, and I started coding to skip
-                the boring parts.
+                So that's mostly what I do. Some of it is 3D: props and little worlds I'd want to
+                stumble into in a game. Some of it is code: apps, tools, and whatever I've been
+                curious about lately. A lot of it ends up on
+                <a href="https://github.com/kaydee001" target="_blank" rel="noreferrer">GitHub</a>,
+                and some of it ends up in my team's everyday workflow.
               </p>
               <p>
-                If I see something cool, I try to make my own version. Most of it ends up on
-                <a href="https://github.com/kaydee001" target="_blank" rel="noreferrer">GitHub</a>.
+                When I'm not building, it's games, anime, sports with friends, and music pretty
+                much always playing.
               </p>
               <p class="about-cta"><a class="btn btn-primary" href="{RESUME}" target="_blank" rel="noreferrer">{icon("resume")}View my resume &#8599;</a><span>The formal version: experience, skills and education.</span></p>
             </div>
           </div>
 
           <dl class="facts panel glow">
-            <div><dt>Focus</dt><dd>3D, tools, code and AI</dd></div>
-            <div><dt>Experience</dt><dd>4+ years in real-time 3D</dd></div>
-            <div><dt>Open to</dt><dd>Roles where 3D, tools and code meet</dd></div>
-            <div><dt>Learning</dt><dd>Whatever looks interesting this week</dd></div>
-            <div><dt>Tools</dt><dd>VS Code, Blender and Claude</dd></div>
-            <div><dt>Music</dt><dd>All kinds, all the time</dd></div>
-            <div><dt>Off hours</dt><dd>Games, anime and sports with my boys</dd></div>
+            <div><dt>Focus</dt><dd>🎯 3D, tools, code and AI</dd></div>
+            <div><dt>Experience</dt><dd>🧊 4+ years in real-time 3D</dd></div>
+            <div><dt>Open to</dt><dd>🤝 Roles where 3D, tools and code meet</dd></div>
+            <div><dt>Learning</dt><dd>🧠 Whatever looks interesting this week</dd></div>
+            <div><dt>Tools</dt><dd>🛠️ VS Code, Blender and Claude</dd></div>
+            <div><dt>Music</dt><dd>🎧 All kinds, all the time</dd></div>
+            <div><dt>Off hours</dt><dd>🎮 Games, anime and sports with my boys</dd></div>
           </dl>
         </div>
       </section>
@@ -742,7 +825,7 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
           <ol class="journey">
             <li class="stop is-next">
               <span class="stop-node" aria-hidden="true">?</span>
-              <a class="stop-next" href="#contact">Next stop: open to what's next {icon("next")}</a>
+              <a class="btn btn-primary stop-next" href="#contact">Next stop: open to what's next {icon("next")}</a>
             </li>
 {"".join(journey_stop(s) for s in reversed(JOURNEY))}          </ol>
         </div>
@@ -756,10 +839,11 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
               {section_label("03", "projects")}
               <h2 data-scramble>Recent builds</h2>
             </div>
-            <a class="more" href="projects.html"><span class="more-count">{len(FEATURED)} of {len(builds)}</span> View all &rarr;</a>
+            <a class="btn btn-primary" href="projects.html"><span class="more-count">{len(FEATURED)} of {len(builds)}</span> View all &rarr;</a>
           </div>
           <div class="features is-compact">
 {"".join(feature_card(n, i) for i, n in enumerate(FEATURED, 1))}          </div>
+          <div class="section-end"><a class="btn btn-primary" href="projects.html">View all &darr;</a></div>
         </div>
       </section>
 
@@ -773,7 +857,7 @@ index = head("Kartik Dhasmana", "Kartik Dhasmana: real-time artist from Pune. I 
               {made_with}
             </div>
             <div class="strip-controls">
-              <a class="more" href="3d.html"><span class="more-count">{len(home_renders)} of {len(renders)}</span> View all &rarr;</a>
+              <a class="btn btn-primary" href="3d.html"><span class="more-count">{len(home_renders)} of {len(renders)}</span> View all &rarr;</a>
               <button class="icon-btn" id="strip-prev" type="button" aria-label="Previous render">{icon("prev")}</button>
               <button class="icon-btn" id="strip-next" type="button" aria-label="Next render">{icon("next")}</button>
             </div>
@@ -877,7 +961,7 @@ gallery = head("3D | Kartik Dhasmana", "3D props, weapons and environments by Ka
         <div class="wrap">
           <div class="tiles is-masonry">
 {"".join(render_tile(by_render[n]) for n in order)}          </div>
-          <a class="more" href="https://www.artstation.com/kaydee001" target="_blank" rel="noreferrer">More on ArtStation &#8599;</a>
+          <a class="btn btn-primary" href="https://www.artstation.com/kaydee001" target="_blank" rel="noreferrer">More on ArtStation &#8599;</a>
         </div>
       </section>
 
@@ -887,6 +971,18 @@ gallery = head("3D | Kartik Dhasmana", "3D props, weapons and environments by Ka
 
 
 # ---------------------------------------------------------------- case studies
+def tool_block(name, problem, does, result, shot):
+    """One tool on a case page: its facts, then the screenshot once the file exists."""
+    media = ""
+    if (root / "images" / "hmx-tools" / shot).exists():
+        media = f'<figure class="case-shot"><img src="images/hmx-tools/{shot}" alt="{escape(name)}, screenshot" loading="lazy" /></figure>'
+    return f"""<article class="tool">
+              <h3>{escape(name)}</h3>
+              <dl class="case-facts panel"><div><dt>problem</dt><dd>{escape(problem)}</dd></div><div><dt>does</dt><dd>{escape(does)}</dd></div><div><dt>result</dt><dd>{escape(result)}</dd></div></dl>
+              {media}
+            </article>"""
+
+
 def case_page(name, prev, nxt, pos):
     c = CASES[name]
     _, cat, _, _, _, links = by_build[name]
@@ -896,7 +992,10 @@ def case_page(name, prev, nxt, pos):
     )
     meta = "".join(f"<div><dt>{k}</dt><dd>{escape(v)}</dd></div>" for k, v in c["meta"])
     what = "".join(f"<p>{escape(p)}</p>" for p in c["what"])
-    steps = "".join(f"<li><b>{k}</b><span>{escape(v)}</span></li>" for k, v in c["steps"])
+    if "tools" in c:
+        steps = '<div class="tools">' + "".join(tool_block(*t) for t in c["tools"]) + "</div>"
+    else:
+        steps = '<ol class="steps">' + "".join(f"<li><b>{k}</b><span>{escape(v)}</span></li>" for k, v in c["steps"]) + "</ol>"
     facts = "".join(f"<div><dt>{k}</dt><dd>{escape(v)}</dd></div>" for k, v in c["facts"])
     note = f'<p class="case-note">{escape(c["note"])}</p>' if c["note"] else ""
     fig_block, fig_script = "", ""
@@ -943,7 +1042,7 @@ def case_page(name, prev, nxt, pos):
 
           <div class="case-block">
             <h2>{c["steps_title"]}</h2>
-            <ol class="steps">{steps}</ol>
+            {steps}
             {note}
           </div>
 
@@ -952,7 +1051,7 @@ def case_page(name, prev, nxt, pos):
             <dl class="case-facts panel">{facts}</dl>
           </div>
 
-          <a class="more" href="projects.html">&larr; All projects</a>
+          <a class="btn btn-primary" href="projects.html">&larr; All projects</a>
         </div>
       </section>
 
@@ -967,7 +1066,7 @@ client_page = head("Client work @ HMX | Kartik Dhasmana",
                    "3D web and AR product work at HMX Media for Dell, Lenovo, McLaren, Royal Enfield and C.L. Seifert.",
                    "hmx-work.html") + rail("experience") + page_head(
     "hmx media", ("index.html#experience", "Experience"), ("projects.html", "Projects"), "02", "client work", "Client work",
-    f"{cw['count']} products I've worked on at HMX Media, for {len(cw['brands'])} brands. Point at a colour to swap the view, "
+    f"{cw['count']} products I've worked on at HMX Media for {len(cw['brands'])} brands. Point at a colour to swap the view, "
     "or click through to the product page.", "",
 ) + f"""
       <section class="section is-tight">
